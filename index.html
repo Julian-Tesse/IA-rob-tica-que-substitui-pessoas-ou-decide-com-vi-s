@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Parecer de um comitê de ética sobre viés algorítmico na seleção de candidatos por inteligência artificial.">
+  <title>Comitê de Ética | IA e Seleção de Pessoas</title>
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --surface: #ffffff;
+      --text: #172033;
+      --muted: #5c667a;
+      --primary: #2449a6;
+      --primary-dark: #19377f;
+      --accent: #e7edff;
+      --border: #dce2ee;
+      --good: #e6f6ee;
+      --good-text: #17623d;
+      --shadow: 0 12px 32px rgba(22, 39, 79, .08);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+    }
+    a { color: var(--primary); }
+    a:focus-visible, button:focus-visible {
+      outline: 3px solid #f0b429;
+      outline-offset: 3px;
+    }
+    .skip-link {
+      position: absolute; left: -9999px; top: 0;
+      background: #fff; padding: .7rem 1rem; z-index: 100;
+    }
+    .skip-link:focus { left: 1rem; top: 1rem; }
+    header {
+      background: linear-gradient(135deg, #142653, #2449a6 65%, #5276d8);
+      color: white;
+      padding: 1.25rem max(1.25rem, calc((100% - 1120px) / 2)) 3.5rem;
+    }
+    .topbar {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem; flex-wrap: wrap; max-width: 1120px; margin: 0 auto;
+    }
+    .brand { font-weight: 800; letter-spacing: .02em; }
+    .topbar a { color: white; text-decoration: none; opacity: .95; }
+    .hero { max-width: 1120px; margin: 3.2rem auto 0; }
+    .eyebrow {
+      text-transform: uppercase; letter-spacing: .13em;
+      font-size: .78rem; font-weight: 800; opacity: .85;
+    }
+    h1 { font-size: clamp(2rem, 5vw, 3.7rem); line-height: 1.08; max-width: 850px; margin: .6rem 0 1rem; }
+    .hero p { max-width: 760px; color: #edf1ff; font-size: 1.1rem; }
+    .pill {
+      display: inline-block; border: 1px solid rgba(255,255,255,.4);
+      border-radius: 999px; padding: .3rem .75rem; font-size: .88rem;
+      margin-top: .65rem;
+    }
+    .layout {
+      max-width: 1120px; margin: -1.4rem auto 3rem; padding: 0 1.25rem;
+      display: grid; grid-template-columns: 245px minmax(0, 1fr); gap: 1.5rem;
+      align-items: start;
+    }
+    nav, main section, .team-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 18px; box-shadow: var(--shadow);
+    }
+    nav { padding: 1.15rem; position: sticky; top: 1rem; }
+    nav h2 { font-size: 1rem; margin: 0 0 .75rem; }
+    nav ol { margin: 0; padding-left: 1.25rem; }
+    nav li { padding: .3rem 0; color: var(--muted); font-size: .92rem; }
+    nav a { text-decoration: none; color: inherit; }
+    nav a:hover { color: var(--primary); text-decoration: underline; }
+    main { min-width: 0; }
+    main section { padding: clamp(1.2rem, 3vw, 2rem); margin-bottom: 1.25rem; }
+    .section-label {
+      font-size: .78rem; text-transform: uppercase; letter-spacing: .1em;
+      font-weight: 800; color: var(--primary); margin-bottom: .25rem;
+    }
+    h2 { line-height: 1.25; margin: 0 0 1rem; font-size: clamp(1.35rem, 3vw, 1.9rem); }
+    h3 { margin: 1.2rem 0 .45rem; font-size: 1.08rem; }
+    p { margin: .55rem 0 .9rem; }
+    ul, ol { padding-left: 1.4rem; }
+    li { margin: .35rem 0; }
+    .muted { color: var(--muted); }
+    .notice {
+      border-left: 4px solid var(--primary); background: var(--accent);
+      border-radius: 0 12px 12px 0; padding: 1rem 1.1rem; margin: 1rem 0;
+    }
+    .decision {
+      background: var(--good); color: var(--good-text);
+      padding: 1rem 1.1rem; border-radius: 12px; font-weight: 650;
+    }
+    .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+    .mini-card { border: 1px solid var(--border); border-radius: 12px; padding: 1rem; }
+    .mini-card h3 { margin-top: 0; }
+    .step {
+      display: grid; grid-template-columns: 2.2rem minmax(0,1fr); gap: .8rem;
+      padding: .8rem 0; border-bottom: 1px solid var(--border);
+    }
+    .step:last-child { border-bottom: 0; }
+    .number {
+      width: 2rem; height: 2rem; display: grid; place-items: center;
+      background: var(--accent); color: var(--primary); border-radius: 50%; font-weight: 800;
+    }
+    .team-card { padding: 1.2rem; margin-bottom: 1.25rem; }
+    .team-card h2 { font-size: 1.2rem; margin-bottom: .5rem; }
+    .edit-hint { font-size: .9rem; color: var(--muted); }
+    .references li { overflow-wrap: anywhere; margin-bottom: .75rem; }
+    footer { text-align: center; padding: 1.5rem 1rem 2.5rem; color: var(--muted); font-size: .9rem; }
+    .button {
+      border: 0; background: var(--primary); color: #fff; border-radius: 10px;
+      padding: .7rem 1rem; font: inherit; font-weight: 700; cursor: pointer;
+    }
+    .button:hover { background: var(--primary-dark); }
+    @media (max-width: 800px) {
+      .layout { grid-template-columns: 1fr; margin-top: -1.5rem; }
+      nav { position: static; }
+      nav ol { columns: 2; column-gap: 1.5rem; }
+      nav li { break-inside: avoid; }
+      .grid-2 { grid-template-columns: 1fr; }
+      .hero { margin-top: 2.3rem; }
+    }
+    @media (max-width: 480px) {
+      nav ol { columns: 1; }
+      header { padding-bottom: 3rem; }
+    }
+    @media print {
+      body { background: white; }
+      header { background: white; color: black; padding: 1rem 0; }
+      .hero p, .topbar a { color: black; }
+      .layout { display: block; margin: 0; padding: 0; }
+      nav, .button, .edit-hint { display: none; }
+      main section, .team-card { box-shadow: none; break-inside: avoid; }
+      a { color: black; text-decoration: none; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+  <header>
+    <div class="topbar">
+      <div class="brand">⚖ Comitê de Ética Digital</div>
+      <a href="#referencias">Referências</a>
+    </div>
+    <div class="hero">
+      <div class="eyebrow">Parecer de ética em tecnologia</div>
+      <h1>Quando a inteligência artificial decide quem merece uma oportunidade?</h1>
+      <p>Análise ética do uso de algoritmos na seleção de candidatos a vagas de emprego, com foco em vieses, transparência, responsabilidade e direitos das pessoas.</p>
+      <span class="pill">Tema: IA que decide com viés</span>
+    </div>
+  </header>
+
+  <div class="layout">
+    <nav aria-label="Índice do parecer">
+      <h2>Neste parecer</h2>
+      <ol>
+        <li><a href="#caso">Descrição do caso</a></li>
+        <li><a href="#dilema">Dilema ético</a></li>
+        <li><a href="#leis">Leis aplicáveis</a></li>
+        <li><a href="#codigo">Código de ética</a></li>
+        <li><a href="#decisao">Tomada de decisão</a></li>
+        <li><a href="#parecer-final">Decisão final</a></li>
+        <li><a href="#prevencao">Prevenção</a></li>
+        <li><a href="#referencias">Referências</a></li>
+      </ol>
+    </nav>
+
+    <main id="conteudo">
+      <div class="team-card">
+        <h2>Identificação do comitê</h2>
+        <p><strong>Empresa fictícia:</strong> NexaTech — soluções digitais e recrutamento inteligente</p>
+        <p><strong>Integrantes:</strong> Arthur P; Julian T; Murilo F; Nicolas C;</p>
+        <p><strong>Turma:</strong> 2º Ano TI </p>
+      </div>
+
+      <section id="caso">
+        <div class="section-label">Seção 1</div>
+        <h2>Descrição do caso e das partes envolvidas</h2>
+        <p>A NexaTech desenvolveu um sistema de inteligência artificial para ajudar empresas a selecionar currículos. O sistema foi treinado com dados de contratações anteriores e passou a atribuir notas aos candidatos, recomendando quem deveria avançar no processo seletivo.</p>
+        <p>Após alguns meses, uma auditoria interna fictícia identificou que o sistema recomendava com menor frequência candidatos de determinados grupos, mesmo quando apresentavam qualificações semelhantes às de outros candidatos. O padrão poderia estar relacionado aos dados históricos usados no treinamento e a características que funcionavam como indicadores indiretos de gênero, idade, região ou trajetória socioeconômica.</p>
+        <p>A empresa cliente questionou os resultados. A equipe técnica percebeu que não conseguia explicar claramente todos os fatores que influenciavam cada pontuação. O comitê de ética foi convocado para avaliar se o sistema deveria continuar sendo utilizado.</p>
+        <h3>Partes envolvidas</h3>
+        <ul>
+          <li><strong>Candidatos:</strong> podem perder oportunidades de trabalho por avaliações injustas.</li>
+          <li><strong>Empresas contratantes:</strong> dependem de recomendações confiáveis e não discriminatórias.</li>
+          <li><strong>NexaTech:</strong> desenvolve e fornece o sistema e deve avaliar os riscos de seu produto.</li>
+          <li><strong>Equipe técnica e de dados:</strong> responsável por desenvolver, testar, documentar e monitorar o algoritmo.</li>
+          <li><strong>Sociedade e órgãos competentes:</strong> têm interesse em processos seletivos justos e no cumprimento da legislação.</li>
+        </ul>
+        <div class="notice"><strong>Observação:</strong> este é um cenário hipotético verossímil, criado para fins educacionais. Não representa uma acusação contra uma empresa real.</div>
+      </section>
+
+      <section id="dilema">
+        <div class="section-label">Seção 2</div>
+        <h2>Dilema ético: qual é o conflito?</h2>
+        <p>O conflito está entre a eficiência prometida pela automação e o dever de garantir que decisões que afetam a vida profissional das pessoas sejam justas, explicáveis e passíveis de contestação.</p>
+        <div class="grid-2">
+          <div class="mini-card">
+            <h3>Benefícios possíveis</h3>
+            <ul>
+              <li>Analisar muitos currículos rapidamente.</li>
+              <li>Reduzir tarefas repetitivas.</li>
+              <li>Ajudar a organizar critérios de seleção.</li>
+            </ul>
+          </div>
+          <div class="mini-card">
+            <h3>Riscos identificados</h3>
+            <ul>
+              <li>Reproduzir desigualdades históricas.</li>
+              <li>Excluir candidatos qualificados injustamente.</li>
+              <li>Dificultar a explicação e a contestação das notas.</li>
+              <li>Transferir decisões importantes para um sistema sem supervisão adequada.</li>
+            </ul>
+          </div>
+        </div>
+        <h3>Pergunta central</h3>
+        <p><strong>É aceitável manter uma ferramenta automatizada que economiza tempo se houver evidências de que ela pode prejudicar injustamente determinados candidatos?</strong></p>
+      </section>
+
+      <section id="leis">
+        <div class="section-label">Seção 3</div>
+        <h2>Leis aplicáveis</h2>
+        <p>As normas abaixo podem ser relevantes dependendo dos dados utilizados, da finalidade do sistema e dos fatos concretos. A análise é educativa e não substitui orientação jurídica.</p>
+        <h3>Lei Geral de Proteção de Dados — LGPD (Lei nº 13.709/2018)</h3>
+        <p>A LGPD regula o tratamento de dados pessoais. Seus princípios incluem finalidade, adequação, necessidade, transparência, segurança, prevenção e não discriminação. O artigo 20 prevê o direito de solicitar revisão de decisões tomadas unicamente com base em tratamento automatizado de dados pessoais que afetem os interesses do titular, incluindo decisões destinadas a definir perfil profissional. A aplicação depende das circunstâncias do caso e da legislação vigente.</p>
+        <h3>Marco Civil da Internet (Lei nº 12.965/2014)</h3>
+        <p>Estabelece princípios, garantias, direitos e deveres para o uso da internet no Brasil. Pode ser relevante para aspectos ligados ao ambiente digital, mas não é uma lei específica sobre seleção algorítmica ou discriminação em recrutamento.</p>
+        <h3>Lei de Software (Lei nº 9.609/1998)</h3>
+        <p>Trata da proteção da propriedade intelectual de programas de computador. É pertinente à proteção e ao uso do software, mas não autoriza práticas discriminatórias nem resolve, sozinha, o problema ético do viés.</p>
+        <h3>Lei Carolina Dieckmann (Lei nº 12.737/2012)</h3>
+        <p>Introduziu alterações no Código Penal relacionadas a determinados delitos informáticos. Não parece ser central neste cenário, pois não foi descrita invasão de dispositivo ou conduta semelhante. Seria relevante se surgissem fatos que se enquadrassem nos tipos penais previstos.</p>
+        <h3>Direitos autorais (Lei nº 9.610/1998)</h3>
+        <p>Protege obras intelectuais nas condições previstas em lei. Pode ser relevante caso o sistema utilize indevidamente conteúdos protegidos em seus materiais, mas não é a norma principal para avaliar viés em contratação.</p>
+        <h3>Outras normas a considerar</h3>
+        <p>A Constituição Federal protege a igualdade e a dignidade da pessoa humana. A legislação trabalhista e normas antidiscriminatórias também podem ser relevantes conforme o tipo de discriminação e as circunstâncias concretas. A equipe deve conferir a redação atualizada das normas e, em um caso real, buscar análise jurídica especializada.</p>
+      </section>
+
+      <section id="codigo">
+        <div class="section-label">Seção 4</div>
+        <h2>Código de ética de referência</h2>
+        <h3>Código de Ética da ACM</h3>
+        <p>O Código de Ética e Conduta Profissional da Association for Computing Machinery (ACM) destaca a contribuição da computação para a sociedade, a prevenção de danos, a honestidade, a justiça, a não discriminação e o respeito à privacidade. Esses princípios orientam profissionais a avaliar impactos para além do desempenho técnico.</p>
+        <h3>Código de Ética da Sociedade Brasileira de Computação (SBC)</h3>
+        <div class="notice"><strong>Aplicação ao caso:</strong> um sistema não deve ser considerado adequado apenas porque é rápido ou barato. A equipe precisa verificar se ele causa danos, discrimina, protege dados pessoais e permite explicações e revisão humana significativa.</div>
+      </section>
+
+      <section id="decisao">
+        <div class="section-label">Seção 5</div>
+        <h2>Passos de tomada de decisão ética</h2>
+        <div class="step">
+          <div class="number">1</div>
+          <div><h3>Identificar o problema</h3><p>Há sinais de que o sistema produz resultados desiguais e não oferece explicações suficientes. Isso pode afetar oportunidades de emprego e a confiança no processo seletivo.</p></div>
+        </div>
+        <div class="step">
+          <div class="number">2</div>
+          <div><h3>Levantar alternativas</h3><ul><li>Continuar usando o sistema sem mudanças.</li><li>Suspender temporariamente as recomendações automatizadas e revisar os resultados.</li><li>Manter a ferramenta apenas como apoio, com revisão humana, auditorias e critérios transparentes.</li><li>Desativar o sistema se os riscos não puderem ser reduzidos a um nível aceitável.</li></ul></div>
+        </div>
+        <div class="step">
+          <div class="number">3</div>
+          <div><h3>Avaliar consequências</h3><p>Continuar sem correções pode perpetuar injustiças e gerar danos aos candidatos. Suspender o sistema pode aumentar temporariamente o trabalho da equipe de recrutamento, mas reduz o risco de decisões injustas enquanto o problema é investigado. Uma retomada controlada só deve ocorrer após testes independentes e medidas de proteção.</p></div>
+        </div>
+        <div class="step">
+          <div class="number">4</div>
+          <div><h3>Decidir e acompanhar</h3><p>Recomenda-se suspender temporariamente o uso da pontuação automática como critério de eliminação. A empresa deve investigar o viés, comunicar os responsáveis pelo processo, revisar decisões potencialmente afetadas e só retomar o sistema após avaliação documentada e monitoramento contínuo.</p></div>
+        </div>
+      </section>
+
+      <section id="parecer-final">
+        <div class="section-label">Seção 6</div>
+        <div class="decision">Parecer: o comitê recomenda suspender temporariamente o uso do algoritmo para eliminar candidatos até que sua segurança, justiça e confiabilidade sejam avaliadas.</div>
+        <p>A decisão prioriza os direitos das pessoas e a prevenção de danos. A tecnologia pode apoiar profissionais de recrutamento, mas não deve substituir a responsabilidade humana em decisões importantes sem controles adequados.</p>
+        <p>Antes de voltar a utilizar o sistema, a NexaTech deverá realizar auditoria independente, verificar resultados entre diferentes grupos, documentar os critérios utilizados, oferecer mecanismos de contestação e garantir supervisão humana real. Se os problemas persistirem, o sistema não deverá ser retomado para essa finalidade.</p>
+        <h3>Por que essa decisão é a mais adequada?</h3>
+        <ul>
+          <li>Reduz o risco de exclusão injusta de candidatos.</li>
+          <li>Reconhece que eficiência não é o único critério de qualidade.</li>
+          <li>Estabelece responsabilidade para a empresa desenvolvedora e para quem utiliza a ferramenta.</li>
+          <li>Permite corrigir o problema com evidências, em vez de confiar apenas em promessas do fornecedor.</li>
+        </ul>
+      </section>
+
+      <section id="prevencao">
+        <div class="section-label">Seção 7</div>
+        <h2>Como evitar que o problema aconteça novamente</h2>
+        <ul>
+          <li><strong>Auditorias regulares:</strong> avaliar os resultados do sistema antes da implantação e em intervalos definidos.</li>
+          <li><strong>Dados representativos e adequados:</strong> examinar limitações dos dados históricos e evitar que desigualdades passadas sejam tratadas como padrão desejável.</li>
+          <li><strong>Testes de impacto:</strong> verificar diferenças relevantes nos resultados entre grupos, respeitando a legislação e a privacidade.</li>
+          <li><strong>Supervisão humana:</strong> profissionais capacitados devem poder questionar recomendações, sem apenas confirmar automaticamente a decisão do sistema.</li>
+          <li><strong>Transparência:</strong> explicar aos candidatos quando a automação é utilizada, quais são suas funções e como pedir revisão quando aplicável.</li>
+          <li><strong>Proteção de dados:</strong> coletar apenas dados necessários, limitar acessos e estabelecer prazos de retenção adequados.</li>
+          <li><strong>Canal de reclamação:</strong> permitir que candidatos apontem erros e solicitem análise do processo.</li>
+          <li><strong>Registro e responsabilização:</strong> documentar versões, testes, incidentes, correções e responsáveis pelas decisões.</li>
+          <li><strong>Critérios de interrupção:</strong> definir previamente quando resultados preocupantes exigem pausar ou desativar o sistema.</li>
+        </ul>
+        <p><strong>Indicador de acompanhamento:</strong> revisar periodicamente as taxas de avanço por etapa, a qualidade das justificativas, as reclamações recebidas e os resultados das auditorias. Nenhum indicador isolado prova que um sistema é justo; os resultados precisam ser interpretados no contexto.</p>
+      </section>
+
+      <section id="referencias" class="references">
+        <div class="section-label">Fontes consultadas</div>
+        <h2>Referências</h2>
+        <ol>
+          <li><strong>BRASIL.</strong> Lei nº 13.709, de 14 de agosto de 2018 — Lei Geral de Proteção de Dados Pessoais (LGPD). <a href="https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm" target="_blank" rel="noopener noreferrer">Texto oficial no Planalto</a>.</li>
+          <li><strong>BRASIL.</strong> Lei nº 12.965, de 23 de abril de 2014 — Marco Civil da Internet. <a href="https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2014/lei/l12965.htm" target="_blank" rel="noopener noreferrer">Texto oficial no Planalto</a>.</li>
+          <li><strong>BRASIL.</strong> Lei nº 9.609, de 19 de fevereiro de 1998 — Lei de Software. <a href="https://www.planalto.gov.br/ccivil_03/leis/l9609.htm" target="_blank" rel="noopener noreferrer">Texto oficial no Planalto</a>.</li>
+          <li><strong>BRASIL.</strong> Lei nº 12.737, de 30 de novembro de 2012 — delitos informáticos. <a href="https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2012/lei/l12737.htm" target="_blank" rel="noopener noreferrer">Texto oficial no Planalto</a>.</li>
+          <li><strong>BRASIL.</strong> Lei nº 9.610, de 19 de fevereiro de 1998 — direitos autorais. <a href="https://www.planalto.gov.br/ccivil_03/leis/l9610.htm" target="_blank" rel="noopener noreferrer">Texto oficial no Planalto</a>.</li>
+          <li><strong>ASSOCIATION FOR COMPUTING MACHINERY (ACM).</strong> <em>ACM Code of Ethics and Professional Conduct.</em> <a href="https://www.acm.org/code-of-ethics" target="_blank" rel="noopener noreferrer">Código de ética da ACM</a>.</li>
+          <li><strong>BRASIL.</strong> Constituição da República Federativa do Brasil de 1988. <a href="https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm" target="_blank" rel="noopener noreferrer">Texto oficial no Planalto</a>.</li>
+          <li><strong>SOCIEDADE BRASILEIRA DE COMPUTAÇÃO (SBC).</strong> Site institucional e materiais de referência. <a href="https://www.sbc.org.br/" target="_blank" rel="noopener noreferrer">Site oficial da SBC</a>.</li>
+        </ol>
+      </section>
+    </main>
+  </div>
+
+</body>
+</html>
